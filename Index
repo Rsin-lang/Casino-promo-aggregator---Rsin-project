@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Australasia Casino Promotions Hub</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    html, body { width: 100%; margin: 0; padding: 0; background-color: #020617; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .glass-nav {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col antialiased selection:bg-amber-500 selection:text-slate-900 w-full">
+
+  <!-- Header -->
+  <header class="sticky top-0 z-40 glass-nav border-b border-slate-800/80 w-full">
+    <div class="w-full px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600 via-amber-500 to-yellow-300 flex items-center justify-center shadow-lg shadow-amber-500/20">
+          <svg class="w-6 h-6 text-slate-950" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-amber-200 via-yellow-100 to-white">
+            CasinoPromo Hub
+          </h1>
+          <p class="text-xs text-slate-400">Live Promotions from Crown, The Star & Christchurch Casino</p>
+        </div>
+      </div>
+      <div class="flex items-center space-x-3">
+        <span id="promo-count-badge" class="px-3 py-1 text-xs font-semibold rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/20">
+          Loading promotions...
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="w-full px-4 sm:px-6 lg:px-8 py-6 flex-1">
+    <div class="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-slate-850 to-slate-900 border border-slate-800 p-6 sm:p-8 mb-6 shadow-2xl w-full">
+      <div class="relative z-10 max-w-4xl">
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-2">
+          Aggregated Gaming, Cash Draws & Member Perks
+        </h2>
+        <p class="text-sm sm:text-base text-slate-300">
+          Consolidated feed of active casino campaigns across Sydney, Melbourne, Brisbane, Gold Coast, and Christchurch. Auto-updated daily.
+        </p>
+      </div>
+    </div>
+
+    <!-- Filters & Search Toolbar -->
+    <div class="bg-slate-900/90 rounded-2xl p-5 border border-slate-800 shadow-xl mb-6 space-y-4 w-full">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="md:col-span-2 relative">
+          <input
+            id="search-input"
+            type="text"
+            placeholder="Search promotions, cars, cash prizes, poker, points..."
+            class="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl pl-4 pr-4 py-2.5 text-sm text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
+          />
+        </div>
+        <div>
+          <select
+            id="sort-select"
+            class="w-full bg-slate-950/80 border border-slate-700/80 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition"
+          >
+            <option value="featured">Sort by: Featured First</option>
+            <option value="venue">Sort by: Casino Venue</option>
+            <option value="title">Sort by: Promo Title</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Venue Filter Pills -->
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Filter by Casino Venue</label>
+        <div id="venue-filters" class="flex flex-wrap gap-2">
+          <button data-venue="all" class="filter-pill-venue active px-3.5 py-1.5 rounded-lg text-xs font-medium bg-amber-500 text-slate-950 font-semibold shadow">All Venues</button>
+          <button data-venue="Crown Sydney" class="filter-pill-venue px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition">Crown Sydney</button>
+          <button data-venue="Crown Melbourne" class="filter-pill-venue px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition">Crown Melbourne</button>
+          <button data-venue="The Star Brisbane" class="filter-pill-venue px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition">The Star Brisbane</button>
+          <button data-venue="The Star Gold Coast" class="filter-pill-venue px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition">The Star Gold Coast</button>
+          <button data-venue="The Star Sydney" class="filter-pill-venue px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition">The Star Sydney</button>
+          <button data-venue="Christchurch Casino" class="filter-pill-venue px-3.5 py-1.5 rounded-lg text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition">Christchurch Casino</button>
+        </div>
+      </div>
+
+      <!-- Category Filter Pills -->
+      <div>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Filter by Category</label>
+        <div id="category-filters" class="flex flex-wrap gap-2">
+          <button data-category="all" class="filter-pill-cat active px-3 py-1 rounded-md text-xs font-medium bg-amber-500 text-slate-950 font-semibold shadow">All Categories</button>
+          <button data-category="Cash & Vehicles" class="filter-pill-cat px-3 py-1 rounded-md text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition">Cash & Car Giveaways</button>
+          <button data-category="Poker" class="filter-pill-cat px-3 py-1 rounded-md text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition">Poker & Tournaments</button>
+          <button data-category="Member Rewards" class="filter-pill-cat px-3 py-1 rounded-md text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition">Points & Multipliers</button>
+          <button data-category="Table Gaming" class="filter-pill-cat px-3 py-1 rounded-md text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition">Table Gaming & Limits</button>
+          <button data-category="Events & Entertainment" class="filter-pill-cat px-3 py-1 rounded-md text-xs font-medium bg-slate-800 text-slate-300 hover:bg-slate-700 transition">Special Events & Racing</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Responsive Promotions Grid -->
+    <div id="promotions-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 w-full"></div>
+
+    <!-- Empty State -->
+    <div id="no-results" class="hidden text-center py-16">
+      <h3 class="text-lg font-semibold text-slate-200">No promotions found</h3>
+      <p class="text-sm text-slate-400 mt-1">Try resetting your search query or switching filters.</p>
+    </div>
+  </main>
+
+  <footer class="border-t border-slate-800 bg-slate-900/50 py-8 text-center text-xs text-slate-500 mt-12 w-full">
+    <div class="w-full px-4 space-y-2">
+      <p>Data aggregated from Crown Sydney, Crown Melbourne, The Star, and Christchurch Casino.</p>
+      <p>Gambling strictly for persons 18+. Call Gambler's Help 1800 858 858 (AU) or 0800 654 655 (NZ).</p>
+    </div>
+  </footer>
+
+  <script>
+    // Initial fallback data if promotions.json has not loaded or is running offline
+    const initialFallbackPromotions = [
+      {
+        id: "cs-1",
+        venue: "Crown Sydney",
+        location: "Sydney, NSW, Australia",
+        badgeColor: "bg-red-500/10 text-red-400 border-red-500/20",
+        title: "Road to Fortune: Win a BMW 120i M Sport",
+        schedule: "Every Tue & Thu, 1 - 29 October",
+        category: "Cash & Vehicles",
+        description: "Win a brand new BMW 120i M Sport, Crown Rewards points, or cash every Tuesday and Thursday.",
+        sourceUrl: "https://www.crownsydney.com.au/whats-on#casino",
+        tags: ["BMW Giveaway", "Crown Rewards", "Cash Draws"]
+      },
+      {
+        id: "cm-1",
+        venue: "Crown Melbourne",
+        location: "Melbourne, VIC, Australia",
+        badgeColor: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
+        title: "Dash for Cash: Win up to $10,000",
+        schedule: "Every Friday (2 - 23 October)",
+        category: "Cash & Vehicles",
+        description: "Crown Rewards members can race and win up to $10,000 in cash directly on the casino floor.",
+        sourceUrl: "https://www.crownmelbourne.com.au/whats-on",
+        tags: ["$10K Cash", "Weekly Draw", "Friday Nights"]
+      },
+      {
+        id: "cm-3",
+        venue: "Crown Melbourne",
+        location: "Melbourne, VIC, Australia",
+        badgeColor: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
+        title: "Progressive Points Multiplier (Up to 5x)",
+        schedule: "Every Wednesday (7 - 28 October)",
+        category: "Member Rewards",
+        description: "Multiply your Crown Rewards Points each Wednesday. Earn up to 5x bonus points on eligible play.",
+        sourceUrl: "https://www.crownmelbourne.com.au/whats-on",
+        tags: ["5x Multiplier", "Reward Points", "Wednesdays"]
+      },
+      {
+        id: "cm-4",
+        venue: "Crown Melbourne",
+        location: "Melbourne, VIC, Australia",
+        badgeColor: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
+        title: "Victorian Poker Championship",
+        schedule: "12 - 27 October",
+        category: "Poker",
+        description: "The Victorian Poker Championship returns to the Crown Poker Room with deep stack flights.",
+        sourceUrl: "https://www.crownmelbourne.com.au/whats-on",
+        tags: ["Crown Poker", "Tournament", "Championship"]
+      },
+      {
+        id: "sb-1",
+        venue: "The Star Brisbane",
+        location: "Brisbane, QLD, Australia",
+        badgeColor: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+        title: "Win a BMW Luxury Vehicle",
+        schedule: "Active Season Campaign",
+        category: "Cash & Vehicles",
+        description: "Brisbane's newest casino at Queen's Wharf offers members chances to win a brand new luxury BMW.",
+        sourceUrl: "https://www.star.com.au/brisbane",
+        tags: ["Car Giveaway", "Queen's Wharf", "Star Club"]
+      },
+      {
+        id: "sb-2",
+        venue: "The Star Brisbane",
+        location: "Brisbane, QLD, Australia",
+        badgeColor: "bg-amber-500/10 text-amber-400 border-amber-500/20",
+        title: "Monday Multiplier",
+        schedule: "Every Monday",
+        category: "Member Rewards",
+        description: "Boost your casino points and tier status every Monday at The Star Brisbane.",
+        sourceUrl: "https://www.star.com.au/brisbane",
+        tags: ["Monday Multiplier", "Tier Points", "Star Club"]
+      },
+      {
+        id: "sgc-1",
+        venue: "The Star Gold Coast",
+        location: "Broadbeach, QLD, Australia",
+        badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+        title: "2X Tier Points Promotion",
+        schedule: "Active Member Days",
+        category: "Member Rewards",
+        description: "Earn double tier points on the Gold Coast casino floor to accelerate Star Club tiers.",
+        sourceUrl: "https://www.star.com.au/goldcoast",
+        tags: ["2X Points", "Tier Elevation", "Star Club"]
+      },
+      {
+        id: "sgc-2",
+        venue: "The Star Gold Coast",
+        location: "Broadbeach, QLD, Australia",
+        badgeColor: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
+        title: "Win a BMW Major Draw",
+        schedule: "Spring Promotion",
+        category: "Cash & Vehicles",
+        description: "Earn entries on Broadbeach Island into the BMW vehicle giveaway draw.",
+        sourceUrl: "https://www.star.com.au/goldcoast",
+        tags: ["BMW Giveaway", "Vehicle Draw", "Broadbeach Island"]
+      },
+      {
+        id: "ss-1",
+        venue: "The Star Sydney",
+        location: "Pyrmont, Sydney, NSW, Australia",
+        badgeColor: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
+        title: "Star Poker Weekly Tournaments",
+        schedule: "Weekly (Big Bounty, Deep Freeze, Super Turbo)",
+        category: "Poker",
+        description: "Weekly tournament schedule and round-the-clock cash games at The Star Sydney.",
+        sourceUrl: "https://www.star.com.au/sydney/whats-on",
+        tags: ["Star Poker", "Cash Games", "Tournaments"]
+      },
+      {
+        id: "ch-1",
+        venue: "Christchurch Casino",
+        location: "Christchurch, New Zealand",
+        badgeColor: "bg-fuchsia-500/10 text-fuchsia-400 border-fuchsia-500/20",
+        title: "Spring Stakes: $50K Race to Rewards",
+        schedule: "Active throughout Spring",
+        category: "Member Rewards",
+        description: "Win your share of $50,000 in Casino Dollars during Spring gaming across Christchurch Casino.",
+        sourceUrl: "https://christchurchcasino.co.nz/whats-on/",
+        tags: ["$50K Pool", "Casino Dollars", "Players Club"]
+      },
+      {
+        id: "ch-2",
+        venue: "Christchurch Casino",
+        location: "Christchurch, New Zealand",
+        badgeColor: "bg-fuchsia-500/10 text-fuchsia-400 border-fuchsia-500/20",
+        title: "Spring Stakes: Spring Showers ($1,000 Friday Wins)",
+        schedule: "Every Friday, 6:00 PM – 10:00 PM",
+        category: "Cash & Vehicles",
+        description: "Hourly $1,000 cash wins between 6pm and 10pm every Friday on the gaming floor.",
+        sourceUrl: "https://christchurchcasino.co.nz/whats-on/",
+        tags: ["$1K Friday Cash", "Hourly Draws", "Cash Showers"]
+      },
+      {
+        id: "ch-5",
+        venue: "Christchurch Casino",
+        location: "Christchurch, New Zealand",
+        badgeColor: "bg-fuchsia-500/10 text-fuchsia-400 border-fuchsia-500/20",
+        title: "Low Table Limits",
+        schedule: "Every Monday & Tuesday",
+        category: "Table Gaming",
+        description: "Reduced table minimums every Monday and Tuesday across blackjack, roulette, and baccarat.",
+        sourceUrl: "https://christchurchcasino.co.nz/whats-on/",
+        tags: ["Low Limits", "Blackjack", "Roulette"]
+      }
+    ];
+
+    let promotions = [...initialFallbackPromotions];
+    let currentVenue = "all";
+    let currentCategory = "all";
+    let searchQuery = "";
+    let sortMode = "featured";
+
+    async function fetchLivePromotions() {
+      try {
+        const res = await fetch('promotions.json', { cache: 'no-cache' });
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data) && data.length > 0) {
+            promotions = data;
+          }
+        }
+      } catch (err) {
+        console.warn("Using fallback promotions data (promotions.json not yet available).", err);
+      } finally {
+        renderPromotions();
+      }
+    }
+
+    function renderPromotions() {
+      const grid = document.getElementById("promotions-grid");
+      const noResults = document.getElementById("no-results");
+      const badge = document.getElementById("promo-count-badge");
+
+      let filtered = promotions.filter(p => {
+        const matchesVenue = (currentVenue === "all" || p.venue === currentVenue);
+        const matchesCategory = (currentCategory === "all" || p.category === currentCategory);
+        const q = searchQuery.toLowerCase().trim();
+        const matchesSearch = !q || (
+          p.title.toLowerCase().includes(q) ||
+          p.venue.toLowerCase().includes(q) ||
+          p.description.toLowerCase().includes(q) ||
+          (p.tags && p.tags.some(t => t.toLowerCase().includes(q)))
+        );
+        return matchesVenue && matchesCategory && matchesSearch;
+      });
+
+      if (sortMode === "venue") filtered.sort((a, b) => a.venue.localeCompare(b.venue));
+      else if (sortMode === "title") filtered.sort((a, b) => a.title.localeCompare(b.title));
+
+      badge.textContent = `${filtered.length} Promotions Available`;
+
+      if (filtered.length === 0) {
+        grid.innerHTML = "";
+        noResults.classList.remove("hidden");
+        return;
+      }
+
+      noResults.classList.add("hidden");
+      grid.innerHTML = filtered.map(p => `
+        <article class="bg-slate-900/80 border border-slate-800 rounded-2xl p-6 hover:border-amber-500/50 hover:bg-slate-900 transition flex flex-col justify-between shadow-lg">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-3">
+              <span class="px-2.5 py-1 text-xs font-semibold rounded-lg border ${p.badgeColor || 'bg-amber-500/10 text-amber-400 border-amber-500/20'}">${p.venue}</span>
+              <span class="text-[11px] font-medium text-slate-400 bg-slate-800 px-2 py-0.5 rounded">${p.category}</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2">${p.title}</h3>
+            <p class="text-xs text-amber-400 font-medium mb-3">${p.schedule}</p>
+            <p class="text-sm text-slate-300 mb-4">${p.description}</p>
+            <div class="flex flex-wrap gap-1.5 mb-5">
+              ${(p.tags || []).map(t => `<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-400 border border-slate-700/50">#${t}</span>`).join('')}
+            </div>
+          </div>
+          <div class="pt-4 border-t border-slate-800 flex items-center justify-between">
+            <span class="text-[11px] text-slate-500">${p.location || ''}</span>
+            <a href="${p.sourceUrl}" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-amber-400 hover:text-amber-300">
+              Official Site &rarr;
+            </a>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      fetchLivePromotions();
+
+      document.getElementById("search-input").addEventListener("input", (e) => {
+        searchQuery = e.target.value;
+        renderPromotions();
+      });
+      document.getElementById("sort-select").addEventListener("change", (e) => {
+        sortMode = e.target.value;
+        renderPromotions();
+      });
+
+      document.querySelectorAll(".filter-pill-venue").forEach(pill => {
+        pill.addEventListener("click", () => {
+          document.querySelectorAll(".filter-pill-venue").forEach(p => {
+            p.classList.remove("bg-amber-500", "text-slate-950", "font-semibold");
+            p.classList.add("bg-slate-800", "text-slate-300");
+          });
+          pill.classList.add("bg-amber-500", "text-slate-950", "font-semibold");
+          pill.classList.remove("bg-slate-800", "text-slate-300");
+          currentVenue = pill.getAttribute("data-venue");
+          renderPromotions();
+        });
+      });
+
+      document.querySelectorAll(".filter-pill-cat").forEach(pill => {
+        pill.addEventListener("click", () => {
+          document.querySelectorAll(".filter-pill-cat").forEach(p => {
+            p.classList.remove("bg-amber-500", "text-slate-950", "font-semibold");
+            p.classList.add("bg-slate-800", "text-slate-300");
+          });
+          pill.classList.add("bg-amber-500", "text-slate-950", "font-semibold");
+          pill.classList.remove("bg-slate-800", "text-slate-300");
+          currentCategory = pill.getAttribute("data-category");
+          renderPromotions();
+        });
+      });
+    });
+  </script>
+</body>
+</html>
