@@ -1,0 +1,37 @@
+YAML
+
+name: Daily Casino Promotions Scraper
+
+on:
+  schedule:
+    - cron: '0 2 * * *' # Runs daily at 2:00 AM UTC
+  workflow_dispatch:   # Allows you to click "Run workflow" manually anytime
+
+jobs:
+  scrape-and-publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+          playwright install --with-deps chromium
+
+      - name: Run Scraper
+        run: python scraper.py
+
+      - name: Commit and Push Updated Promotions
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions@users.noreply.github.com"
+          git add promotions.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Auto-update promotions [skip ci]" && git push)
